@@ -14,7 +14,7 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    private String userName;
+    private String username;
 
     private int age;
 
@@ -22,12 +22,17 @@ public class Member {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public Member(String userName){
-        this.userName=userName;
+    public Member(String username){
+        this.username = username;
     }
 
-    public Member(String userName, int age, Team team) {
-        this.userName=userName;
+    public Member(String username, int age) {
+        this.username = username;
+        this.age = age;
+    }
+
+    public Member(String username, int age, Team team) {
+        this.username = username;
         this.age=age;
         if(team!=null){
             changeTeam(team);

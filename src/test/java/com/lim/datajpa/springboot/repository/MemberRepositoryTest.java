@@ -1,7 +1,6 @@
 package com.lim.datajpa.springboot.repository;
 
 import com.lim.datajpa.springboot.domain.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,12 +8,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
-//@Rollback(false)
+@Rollback(false)
 @Transactional
 @SpringBootTest
 class MemberRepositoryTest {
@@ -29,7 +26,7 @@ class MemberRepositoryTest {
         Member findMember = memberRepository.findById(member.getId()).get();
 
         assertThat(findMember.getId()).isEqualTo(member.getId());
-        assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
+        assertThat(findMember.getUsername()).isEqualTo(member.getUsername());
         assertThat(findMember).isEqualTo(member);
     }
 
@@ -62,6 +59,29 @@ class MemberRepositoryTest {
         long deletedCount = memberRepository.count();
         assertThat(deletedCount).isEqualTo(0);
 
+    }
+
+    @Test
+    public void findByUsernameAndAgeGreaterThan(){
+        Member member1=new Member("aaa", 10);
+        Member member2=new Member("aaa", 20);
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+
+        List<Member> members = memberRepository.findByUsernameAndAgeGreaterThan("aaa", 15);
+        assertThat(members.get(0).getUsername()).isEqualTo(member2.getUsername());
+        assertThat(members.get(0).getAge()).isEqualTo(20);
+        assertThat(members.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void findHelloBy(){
+        List<Member> helloBy = memberRepository.findHelloBy();
+    }
+
+    @Test
+    public void findTop3(){
+        List<Member> top3 = memberRepository.findTop3By();
     }
 
 }
