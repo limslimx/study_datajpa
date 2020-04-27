@@ -43,9 +43,15 @@ public class MemberJpaReqpository {
     }
 
     public List<Member> findByUsernameAndAgeGreaterThan(String userName, int age){
-        return em.createQuery("select m from Member m where m.userName =: userName and m.age >: age", Member.class)
+        return em.createQuery("select m from Member m where m.username =: userName and m.age >: age", Member.class)
                 .setParameter("userName", userName)
                 .setParameter("age", age)
+                .getResultList();
+    }
+
+    public List<Member> findByUsername(String username){
+        return em.createNamedQuery("Member.findByUsername", Member.class)
+                .setParameter("username", username)
                 .getResultList();
     }
 }

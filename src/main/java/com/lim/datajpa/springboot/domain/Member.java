@@ -7,6 +7,10 @@ import javax.persistence.*;
 @Getter @Setter
 @ToString(of = {"id", "userName", "age"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NamedQuery(
+        name = "Member.findByUsername",
+        query = "select m from Member m where m.username=:username"
+)
 @Entity
 public class Member {
 
