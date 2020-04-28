@@ -95,7 +95,7 @@ class MemberJpaReqpositoryTest {
         memberJpaReqpository.save(new Member("member5", 10));
 
         int age=10;
-        int offset=2;
+        int offset=0;
         int limit=3;
 
         //when
